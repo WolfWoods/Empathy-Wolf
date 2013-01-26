@@ -1,5 +1,5 @@
 var loadMapData = function (settings, data, game){
-    var data.layers = [{
+    data.layers = [{
             vpos: 0,
             itemMap: []
         }, {
