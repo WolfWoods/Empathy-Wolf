@@ -26,10 +26,17 @@ window.onload = function () {
         bear.y = data.PlayerStartY * settings.tileSize;
         //game.rootScene.addChild(bear);
 
-
+        game.keybind(88, 'a'); //X
+        game.keybind(90, 'b'); //Z
+        //game.keybind(89, 'c');
+            
         bear.addEventListener('enterframe', function (e) {
             var x = bear.x;
             var y = bear.y;
+
+            //if (game.input.c)
+              //  alert("C");
+            
             if (game.input.left) {
                 if (!data.map.hitTest(x - settings.tileSize, y)) 
                 {
@@ -50,7 +57,54 @@ window.onload = function () {
                     }
                 }
             }
-
+            
+            if (game.input.a) // Grab person
+            {
+                for (var i = 0; i < data.AbandonedPeople.length; i++)
+                {
+                    if (data.AbandonedPeople[i].startY * settings.tileSize == bear.y)
+                    {
+                        if (data.AbandonedPeople[i].startX * settings.tileSize >= bear.x - 1 &&
+                            data.AbandonedPeople[i].startX * settings.tileSize <= bear.x + 1)
+                        {
+                            alert("grab");
+                            data.PartyPeople.push(data.AbandonedPeople[i]);
+                            data.AbandonedPeople.splice(i,1);
+                            game.input.a = null;
+                            break;
+                        }
+                    }
+                }
+                
+                for (var i = 0; i < data.WoodsPeople.length; i++)
+                {
+                    if (data.WoodsPeople[i].startY * settings.tileSize == bear.y)
+                    {
+                        if (data.WoodsPeople[i].startX * settings.tileSize >= bear.x - 1 &&
+                            data.WoodsPeople[i].startX * settings.tileSize <= bear.x + 1)
+                        {
+                            alert("grab");
+                            data.PartyPeople.push(data.WoodsPeople[i]);
+                            data.WoodsPeople.splice(i,1);
+                            game.input.a = null;
+                            break;
+                        }
+                    }
+                }
+            }
+            
+            if (game.input.b) // Drop person
+            {
+                if (data.PartyPeople.length > 0)
+                {
+                    alert("drop");
+                    data.AbandonedPeople.push(data.PartyPeople[data.PartyPeople.length - 1]);
+                    data.AbandonedPeople[data.AbandonedPeople.length - 1].startX = bear.x / settings.tileSize;
+                    data.AbandonedPeople[data.AbandonedPeople.length - 1].startY = bear.y / settings.tileSize;
+                    data.PartyPeople.splice(data.PartyPeople.length - 1, 1);
+                    game.input.b = null;
+                }
+            }
         });
         
         var stage = new Group();
