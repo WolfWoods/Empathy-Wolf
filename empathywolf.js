@@ -9,8 +9,8 @@ window.onload = function () {
     game.fps = 15;
     game.preload("chara1.png");
     game.preload("chara0.gif");
+    
     game.onload = function () {
-
         loadMapData(settings, game);
        
 
