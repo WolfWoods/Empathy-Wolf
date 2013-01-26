@@ -5,10 +5,11 @@ window.onload = function () {
     var settings = {}, data = {};
     settings.ViewportHeight = 600;
     parseMapData(settings, data);
-    var game = new Game(settings.MapLength, settings.ViewportHeight);
+    var game = new Game(settings.MapLength * 32, settings.ViewportHeight);
     game.fps = 15;
     game.preload("chara1.png");
     game.preload("chara0.gif");
+    
     game.onload = function () {
 
         loadMapData(settings, data, game);

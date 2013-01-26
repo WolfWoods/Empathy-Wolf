@@ -23,7 +23,7 @@ var loadMapData = function (settings, data, game){
     }
 
     
-     var map = new Map(16,16);
+        var map = new Map(16,16);
         map.loadData(data.BackgroundSpriteMatrix, data.CollisionMatrix);
         scene.addChild(map);
 }
