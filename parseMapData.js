@@ -20,16 +20,19 @@ var parseMapData = function (settings, data) {
         
         for (var j = 0; j < settings.MapLength; j++)
         {
-            data.BackgroundSpriteMatrix[i][j] = 0;
+            //data.BackgroundSpriteMatrix[i][j] = 0;
         
-            if (mapLayout[i][j] === "B") //B is Tree
+            if (mapLayout[i][j] === "B") {//B is Tree
                 data.CollisionMatrix[i][j] = 1;
-            else
+                data.BackgroundSpriteMatrix[i][j] = -1;
+            }
+            else{
                 data.CollisionMatrix[i][j] = 0;
-            
-            if (mapLayout[i][j] === "C") //C is NPC
+                data.BackgroundSpriteMatrix[i][j] = 0;
+            }
+            if (mapLayout[i][j] === "C") {//C is NPC
                 data.WoodsPeople.push({startX: j, startY: i});
-                
+            }
             if (mapLayout[i][j] === "D") //D is Wolf AWOOOOOOO
                 data.Wolves.push({startX: j, startY: i});
                 

@@ -1,4 +1,5 @@
 var loadMapData = function (settings, data, game){
+    /*
     data.layers = data.layers || [];
     for(var i = 0; i < data.CollisionMatrix.length; i++){
         data.layers[i] = {vpos:i, spriteList:[] };
@@ -21,9 +22,11 @@ var loadMapData = function (settings, data, game){
                 game.rootScene.addChild(layerElement);
         }
     }
-
+*/
     
-        var map = new Map(16,16);
-        map.loadData(data.BackgroundSpriteMatrix, data.CollisionMatrix);
-        scene.addChild(map);
+        data.map = new Map(16,16);
+        data.map.image = game.assets['map1.gif'];
+        data.map.loadData(data.BackgroundSpriteMatrix);
+        data.map.collisionData = data.CollisionMatrix;
+    
 }
