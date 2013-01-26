@@ -11,8 +11,7 @@ window.onload = function () {
     game.preload("chara0.gif");
     
     game.onload = function () {
-        loadMapData(settings, game);
-       
+        loadMapData(settings, data, game);       
 
         var player = new Sprite(32, 32);
         player.x = 0;
