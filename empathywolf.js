@@ -3,7 +3,7 @@ enchant();
 window.onload = function () {
     //settings
     var settings = {}, data = {};
-    settings.ViewportHeight = 32;
+    settings.ViewportHeight = 600;
     parseMapData(settings, data);
     var game = new Game(settings.MapLength, settings.ViewportHeight);
     game.fps = 15;
@@ -13,7 +13,6 @@ window.onload = function () {
 
         loadMapData(settings, data, game);
        
-
         var player = new Sprite(32, 32);
         player.x = 0;
         player.y = 0;
