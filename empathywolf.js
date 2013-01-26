@@ -4,48 +4,14 @@ window.onload = function () {
     //settings
     var settings, worldObjects, loadedMap;
     settings.ViewportHeight = 32;
-    parseMapData(settings);
+    parseMapData(settings, data);
     var game = new Game(settings.MapLength, settings.ViewportHeight);
     game.fps = 15;
     game.preload("chara1.png");
     game.preload("chara0.gif");
     game.onload = function () {
 
-        var layers = [{
-            vpos: 0,
-            itemMap: []
-        }, {
-            vpos: 0,
-            itemMap: []
-        }, {
-            vpos: 0,
-            itemMap: []
-        }, {
-            vpos: 0,
-            itemMap: []
-        }, {
-            vpos: 0,
-            itemMap: []
-        }];
-        currentLayer = layers[0];
-        for (var i = 0; i < mapData.length; i++) {
-            var f = function () {
-                var layerElement = new Sprite(32, 32);
-                if (mapData[i] === 0) {
-                    layerElement.image = game.assets["chara0.gif"];
-                    layerElement.x = i * 32;
-                    layerElement.y = 0;
-                    layerElement.frame = 5;
-                } else if (mapData[i] === 0) {
-                    layerElement.image = game.assets["chara1.png"];
-                    layerElement.x = i * 32;
-                    layerElement.y = i * 32;
-                    layerElement.frame = 5;
-                }
-                currentLayer.itemMap.push(layerElement);
-                game.rootScene.addChild(layerElement);
-            }();
-        }
+        loadMapData(settings, game);
         var map = new Map(16,16);
         map.loadData(mapData);
         scene.adChild(map);
