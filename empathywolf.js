@@ -1,29 +1,63 @@
 enchant();
 
-window.onload = function() {
-    var game = new Game(320, 320);
+window.onload = function () {
+    //settings
+    var settings, worldObjects, loadedMap;
+    settings.ViewportHeight = 32;
+    parseMapData(settings);
+    var game = new Game(settings.MapLength, settings.ViewportHeight);
     game.fps = 15;
-    game.preload('map1.gif', 'chara0.gif');
-    game.onload = function() {
-        
-        
-        var map = new Map(16, 16);
-        map.image = game.assets['map1.gif'];
-        map.loadData(mapData[0],mapData[1]);
-        //map.collisionData = collisionData;
-        map.collisionData = 0;
-        
-        var foregroundMap = new Map(16, 16);
-        foregroundMap.image = game.assets['map1.gif'];
-        foregroundMap.loadData(foregroundMapData);
+    game.preload("chara1.png");
+    game.preload("chara0.gif");
+    game.onload = function () {
+
+        var layers = [{
+            vpos: 0,
+            itemMap: []
+        }, {
+            vpos: 0,
+            itemMap: []
+        }, {
+            vpos: 0,
+            itemMap: []
+        }, {
+            vpos: 0,
+            itemMap: []
+        }, {
+            vpos: 0,
+            itemMap: []
+        }];
+        currentLayer = layers[0];
+        for (var i = 0; i < mapData.length; i++) {
+            var f = function () {
+                var layerElement = new Sprite(32, 32);
+                if (mapData[i] === 0) {
+                    layerElement.image = game.assets["chara0.gif"];
+                    layerElement.x = i * 32;
+                    layerElement.y = 0;
+                    layerElement.frame = 5;
+                } else if (mapData[i] === 0) {
+                    layerElement.image = game.assets["chara1.png"];
+                    layerElement.x = i * 32;
+                    layerElement.y = i * 32;
+                    layerElement.frame = 5;
+                }
+                currentLayer.itemMap.push(layerElement);
+                game.rootScene.addChild(layerElement);
+            }();
+        }
+        var map = new Map(16,16);
+        map.loadData(mapData);
+        scene.adChild(map);
 
         var player = new Sprite(32, 32);
-        player.x = 6 * 16 - 8;
-        player.y = 10 * 16;
+        player.x = 0;
+        player.y = 0;
+        
         var image = new Surface(96, 128);
         image.draw(game.assets['chara0.gif'], 0, 0, 96, 128, 0, 0, 96, 128);
         player.image = image;
-
+        
         player.isMoving = false;
         player.direction = 0;
         player.walk = 1;
@@ -64,28 +98,6 @@ window.onload = function() {
                     }
                 }
             }
-        });
-
-        var stage = new Group();
-        stage.addChild(map);
-        stage.addChild(player);
-        stage.addChild(foregroundMap);
-        game.rootScene.addChild(stage);
-        
-
-        var pad = new Pad();
-        pad.x = 0;
-        pad.y = 220;
-        game.rootScene.addChild(pad);
-        
-        
-        game.rootScene.addEventListener('enterframe', function(e) {
-            var x = Math.min((game.width  - 16) / 2 - player.x, 0);
-            var y = Math.min((game.height - 16) / 2 - player.y, 0);
-            x = Math.max(game.width,  x + map.width)  - map.width;
-            y = Math.max(game.height, y + map.height) - map.height;
-            stage.x = x;
-            stage.y = y;
         });
     };
     game.start();
