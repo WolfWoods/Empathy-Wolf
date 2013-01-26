@@ -1,5 +1,5 @@
 var loadMapData = function (settings, data, game){
-    var settings.layers = [{
+    var data.layers = [{
             vpos: 0,
             itemMap: []
         }, {
@@ -15,7 +15,7 @@ var loadMapData = function (settings, data, game){
             vpos: 0,
             itemMap: []
         }];
-        currentLayer = layers[0];
+        data.currentLayer = data.layers[0];
         for (var i = 0; i < mapData.length; i++) {
             var f = function () {
                 var layerElement = new Sprite(32, 32);
@@ -30,8 +30,12 @@ var loadMapData = function (settings, data, game){
                     layerElement.y = i * 32;
                     layerElement.frame = 5;
                 }
-                currentLayer.itemMap.push(layerElement);
+                data. currentLayer.itemMap.push(layerElement);
                 game.rootScene.addChild(layerElement);
             }();
         }
+    
+     var map = new Map(16,16);
+        map.loadData(mapData);
+        scene.addChild(map);
 }
