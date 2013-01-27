@@ -10,7 +10,7 @@ window.onload = function () {
     parseMapData(settings, data);
     var game = new Game(settings.ViewportWidth, settings.ViewportHeight);
     game.fps = 15;
-    game.preload("img/people_woman_old.png","img/wolf_small.png", "img/banana.png", 'img/background.png', 'map1.gif', 'chara0.gif', "chara1.png", "img/people_man_fat.png", "img/tree_1wide_split.png", "img/tree_3wide_split.png", "img/tree_2wide_split.png", "img/tree_2wide_full.png");
+    game.preload("img/layer_ground.png","img/people_woman_old.png","img/wolf_small.png", "img/banana.png", 'img/background.png', 'map1.gif', 'chara0.gif', "chara1.png", "img/people_man_fat.png", "img/tree_1wide_split.png", "img/tree_3wide_split.png", "img/tree_2wide_split.png", "img/tree_2wide_full.png");
 
     game.onload = function () {
         

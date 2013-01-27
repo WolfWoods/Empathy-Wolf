@@ -27,10 +27,10 @@ var processParallax = function (settings, data, game) {
         };
         var g = function () {
             //bottom
-            data.layers[i].floorSprite = new Sprite(settings.MapLength * settings.tileSize, settings.tileSize);
-            data.layers[i].floorSprite.image = game.assets["img/banana.png"];
+            data.layers[i].floorSprite = new Sprite(settings.MapLength * settings.tileSize, 600);
+            data.layers[i].floorSprite.image = game.assets["img/layer_ground.png"];
             data.layers[i].floorSprite.x = 0;
-            data.layers[i].floorSprite.y = 450 - settings.tileSize;
+            data.layers[i].floorSprite.y = 400 - settings.tileSize;
             data.layers[i].stage.addChild(data.layers[i].floorSprite);
 
             //top
@@ -137,6 +137,7 @@ var setLayers = function (settings, data, game) {
             data.backParallax.y += -0;
             data.backParallaxOffsetApplied = true;
         }
+        //else{alert();}
 
 
     } else {
