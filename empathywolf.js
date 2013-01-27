@@ -43,6 +43,7 @@ window.onload = function () {
         player.image = game.assets["img/people_man_fat.png"];
         player.x = data.PlayerStartX * settings.tileSize;
         player.y = data.PlayerStartY * settings.tileSize;
+        player.opacity = 0.6;
         data.PartyPeople.push(player);
         player.isPlayer = true;
         data.shownGameOverScreen = false;
@@ -50,6 +51,10 @@ window.onload = function () {
         setInput(settings,data,game);
 
         loadWolves(settings,data,game);
+        
+        game.rootScene.addEventListener('enterframe', function (e) {
+            wolvesBehave(settings,data,game);
+        });
             
         setLayers(settings, data, game);
         

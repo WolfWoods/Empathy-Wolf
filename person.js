@@ -4,11 +4,11 @@ var AddToParty = function (person, direction, settings, data, game)
         
         if (!data.facingRight)
         {
-            person.x = data.PartyPeople[data.PartyPeople.length - 1].x + settings.tileSize);
+            person.x = data.PartyPeople[data.PartyPeople.length - 1].x + settings.tileSize;
             person.scale(-1, 1);
         }
         else
-            person.x = data.PartyPeople[0].x - settings.tileSize);
+            person.x = data.PartyPeople[0].x - settings.tileSize;
     }
     
 var RemoveFromParty = function (person, settings, data, game)

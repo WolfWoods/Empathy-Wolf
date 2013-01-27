@@ -25,6 +25,9 @@ var processParallax = function (settings, data, game) {
             spriteList: [],
             stage: new Group()
         };
+        
+        
+        
         for (var j = 0; j < data.CollisionMatrix[i].length; j++) {
             data.layers[i].spriteList[j] = {
                 val: data.CollisionMatrix[i][j],
@@ -44,24 +47,22 @@ var processParallax = function (settings, data, game) {
                 }();
             }
 
-            //top & bottom
-            var g = function () {
+        }
+var g = function () {
                 //bottom
-                data.layers[i].spriteList[j].floorSprite = new Sprite(40, 40);
-                data.layers[i].spriteList[j].floorSprite.image = game.assets["img/banana.png"];
-                data.layers[i].spriteList[j].floorSprite.x = j * settings.tileSize;
-                data.layers[i].spriteList[j].floorSprite.y = 450 - settings.tileSize;
-                data.layers[i].stage.addChild(data.layers[i].spriteList[j].floorSprite);
+                data.layers[i].floorSprite = new Sprite(settings.MapLength * settings.tileSize, settings.tileSize);
+                data.layers[i].floorSprite.image = game.assets["img/banana.png"];
+                data.layers[i].floorSprite.x = 0;
+                data.layers[i].floorSprite.y = 450 - settings.tileSize;
+                data.layers[i].stage.addChild(data.layers[i].floorSprite);
 
                 //top
-                data.layers[i].spriteList[j].celingSprite = new Sprite(40, 40);
-                data.layers[i].spriteList[j].celingSprite.image = game.assets["img/banana.png"];
-                data.layers[i].spriteList[j].celingSprite.x = j * settings.tileSize;
-                data.layers[i].spriteList[j].celingSprite.y = 0;
-                data.layers[i].stage.addChild(data.layers[i].spriteList[j].celingSprite);
+                data.layers[i].celingSprite = new Sprite(settings.MapLength * settings.tileSize, settings.tileSize);
+                data.layers[i].celingSprite.image = game.assets["img/banana.png"];
+                data.layers[i].celingSprite.x = 0;
+                data.layers[i].celingSprite.y = 0;
+                data.layers[i].stage.addChild(data.layers[i].celingSprite);
             }();
-        }
-
     }
 }
 
@@ -81,14 +82,14 @@ var setLayers = function (settings, data, game) {
     if (typeof backLayer !== 'undefined') {
         //final states
         //opacity
-        setTreeOpacity(backLayer, 0.5);
+        setTreeOpacity(backLayer, 0.3);
         data.backParallax = backLayer.stage;
         //scale
-        data.backParallax.scaleX = 0.5;
-        data.backParallax.scaleY = 0.5;
+        data.backParallax.scaleX = 1;
+        data.backParallax.scaleY = 0.75;
         //offset
         if (!data.backParallaxOffsetApplied) {
-            data.backParallax.y += -50;
+            data.backParallax.y += -0;
             data.backParallaxOffsetApplied = true;
         }
 
@@ -98,7 +99,7 @@ var setLayers = function (settings, data, game) {
     }
 
     //opacity
-    setTreeOpacity(currentLayer, 1);
+    setTreeOpacity(currentLayer, 0.6);
     data.currentParallax = currentLayer.stage;
     data.currentParallax.scaleX = 1;
     data.currentParallax.scaleY = 1;
@@ -112,14 +113,14 @@ var setLayers = function (settings, data, game) {
     if (typeof forwardLayer !== 'undefined') {
         //final states
         //opacity
-        setTreeOpacity(forwardLayer, 0.5);
+        setTreeOpacity(forwardLayer, 1);
         data.forwardParallax = forwardLayer.stage;
         //scale
-        data.forwardParallax.scaleX = 2;
-        data.forwardParallax.scaleY = 2;
+        data.forwardParallax.scaleX = 1;
+        data.forwardParallax.scaleY = 1.25;
         //offset
         if (!data.forwardParallaxOffsetApplied) {
-            data.forwardParallax.y += 50;
+            data.forwardParallax.y += 0;
             data.forwardParallaxOffsetApplied = true;
         }
 
