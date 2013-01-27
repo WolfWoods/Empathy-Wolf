@@ -31,7 +31,7 @@ var parseMapData = function (settings, data) {
                 data.BackgroundSpriteMatrix[i][j] = 0;
             }
             if (mapLayout[i][j] === "C") {//C is NPC
-                data.WoodsPeople.push({startX: j, startY: i});
+                data.WoodsPeople.push({startX: j, startY: i, isPlayer: false});
                 data.BackgroundSpriteMatrix[i][j] = 13;
             }
             if (mapLayout[i][j] === "D") //D is Wolf AWOOOOOOO
