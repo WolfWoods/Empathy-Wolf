@@ -1,3 +1,14 @@
+var loadPeople = function (settings, data, game){
+    for (var i = 0; i < data.WoodsPeople.length; i++) {
+            data.WoodsPeople[i].sprite = new Sprite(80, 120);
+            data.WoodsPeople[i].sprite.image = game.assets["img/people_woman_old.png"];
+            data.WoodsPeople[i].sprite.x = data.WoodsPeople[i].startX * settings.tileSize;
+            data.WoodsPeople[i].sprite.y = 365;
+            data.layers[data.WoodsPeople[i].startY].stage.addChild(data.WoodsPeople[i].sprite);
+        
+    }
+}
+
 var AddToParty = function (person, direction, settings, data, game)
     {
         person.wolfTimer = -1;
