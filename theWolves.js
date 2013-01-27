@@ -7,7 +7,7 @@ var loadWolves = function (settings, data, game) {
         wolves[i].sprite.x = wolves[i].startX * settings.tileSize;
         wolves[i].sprite.y = 365;
         wolves[i].speed = 5;
-        data.layers[0].stage.addChild(wolves[i].sprite);
+        data.layers[wolves[i].startY].stage.addChild(wolves[i].sprite);
         
         wolves[i].facingRight = true;
         wolves[i].nextActionAt = d.getTime() + 1;

@@ -27,17 +27,17 @@ var processParallax = function (settings, data, game) {
         };
         var g = function () {
             //bottom
-            data.layers[i].floorSprite = new Sprite(settings.MapLength * settings.tileSize, 600);
+            data.layers[i].floorSprite = new Sprite((settings.MapLength+100) * settings.tileSize, 600);
             data.layers[i].floorSprite.image = game.assets["img/layer_ground.png"];
-            data.layers[i].floorSprite.x = 0;
+            data.layers[i].floorSprite.x = i*-300;
             data.layers[i].floorSprite.y = 400 - settings.tileSize;
             data.layers[i].stage.addChild(data.layers[i].floorSprite);
 
             //top
-            data.layers[i].celingSprite = new Sprite(settings.MapLength * settings.tileSize, settings.tileSize);
-            data.layers[i].celingSprite.image = game.assets["img/banana.png"];
+            data.layers[i].celingSprite = new Sprite((settings.MapLength+100) * settings.tileSize, 300);
+            data.layers[i].celingSprite.image = game.assets["img/layer_ceiling.png"];
             data.layers[i].celingSprite.x = 0;
-            data.layers[i].celingSprite.y = 0;
+            data.layers[i].celingSprite.y = -200 + i*50;
             data.layers[i].stage.addChild(data.layers[i].celingSprite);
         }();
 
