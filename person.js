@@ -1,8 +1,14 @@
 var AddToParty = function (person, direction, settings, data, game)
     {
         person.wolfTimer = -1;
-        // Put new addition on appropriate side based on facing direction.  
-        // New x is tilesize * partypeople.length
+        
+        if (!data.facingRight)
+        {
+            person.x = data.PartyPeople[data.PartyPeople.length - 1].x + settings.tileSize);
+            person.scale(-1, 1);
+        }
+        else
+            person.x = data.PartyPeople[0].x - settings.tileSize);
     }
     
 var RemoveFromParty = function (person, settings, data, game)
@@ -14,7 +20,7 @@ var RemoveFromParty = function (person, settings, data, game)
         person.addEventListener('enterframe', function (e) 
         {
             person.wolfTimer--;
-            if (person.wolfTimer == 0)
+            if (person.wolfTimer === 0)
             {
                 EatenByWolf(person, settings, data, game);  
                 return;
@@ -24,5 +30,13 @@ var RemoveFromParty = function (person, settings, data, game)
     
 var EatenByWolf = function (person, settings, data, game)
     {
-        alert("EATED! AWOOOOOO!"
+        for (var i = 0; i < data.AbandonedPeople.length; i++)
+        {
+            if (person.personID === data.AbandonedPeople[i].personID)
+            {
+                data.AbandonedPeople.splice(i,1);
+                break;
+            }
+        }
+        alert("EATED! AWOOOOOO!");
     }

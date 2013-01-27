@@ -18,6 +18,7 @@ var parseMapData = function (settings, data) {
         data.BackgroundSpriteMatrix[i] = [];
         data.CollisionMatrix[i] = [];
         
+        var k = 1;
         for (var j = 0; j < settings.MapLength; j++)
         {
             //data.BackgroundSpriteMatrix[i][j] = 0;
@@ -31,7 +32,8 @@ var parseMapData = function (settings, data) {
                 data.BackgroundSpriteMatrix[i][j] = 0;
             }
             if (mapLayout[i][j] === "C") {//C is NPC
-                data.WoodsPeople.push({startX: j, startY: i, isPlayer: false});
+                data.WoodsPeople.push({startX: j, startY: i, isPlayer: false, personID: k});
+                k++;
                 data.BackgroundSpriteMatrix[i][j] = 13;
             }
             if (mapLayout[i][j] === "D") //D is Wolf AWOOOOOOO

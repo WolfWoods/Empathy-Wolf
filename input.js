@@ -37,8 +37,6 @@ var setInput = function (settings, data, game){
                 }
                 
                 // handle party people/player in array
-                
-                // handle finish line
             }
         }
     
