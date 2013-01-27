@@ -261,23 +261,23 @@ var setInput = function (settings, data, game){
                     }
                 }
             }
-
-            for (var i = 0; i < data.WoodsPeople.length; i++) {
+            for (var j = 0; j < data.WoodsPeople.length; j++) {
                 if (data.WoodsPeople[i].startY * settings.tileSize == player.y) {
-                    if (data.WoodsPeople[i].startX * settings.tileSize >= player.x - settings.tileSize && 
-                        data.WoodsPeople[i].startX * settings.tileSize <= player.x + settings.tileSize) 
+                    if (data.WoodsPeople[j].startX * settings.tileSize >= player.x - settings.tileSize && 
+                        data.WoodsPeople[j].startX * settings.tileSize <= player.x + settings.tileSize) 
                     {
                         if (data.facingRight)
-                            data.PartyPeople.unshift(data.WoodsPeople[i]);
+                            data.PartyPeople.unshift(data.WoodsPeople[j]);
                         else
-                            data.PartyPeople.push(data.WoodsPeople[i]);
-                        AddToParty(data.WoodsPeople[i], settings, data, game);
-                        data.WoodsPeople.splice(i, 1);
+                            data.PartyPeople.push(data.WoodsPeople[j]);
+                        AddToParty(data.WoodsPeople[j], settings, data, game);
+                        data.WoodsPeople.splice(j, 1);
                         game.input.x = null;
                         break;
                     }
                 }
             }
+            game.input.x = null;
         }
 
         // Drop party person
@@ -294,6 +294,7 @@ var setInput = function (settings, data, game){
                 
                 game.input.z = null;
             }
+            game.input.z = null;
         }
     });
 }
