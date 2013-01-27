@@ -38,6 +38,8 @@ window.onload = function () {
         player.image = game.assets["img/people_man_fat.png"];
         player.x = data.PlayerStartX * settings.tileSize;
         player.y = data.PlayerStartY * settings.tileSize;
+        data.PartyPeople.push(player);
+        player.isPlayer = true;
 
 
         setInput(settings, data, game);
