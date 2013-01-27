@@ -46,9 +46,33 @@ var processParallax = function (settings, data, game) {
     }
 }
     
-var loadParallax = function (settings, data, game){
-    for(var i = 0; i < data.layers.length; i++){
-        game.rootScene.addChild(data.layers[i].stage);
-    }
+var setLayers = function (settings, data, game){
+    
+    //map
+    data.stage.addChild(data.map);
+    //background
+    data.stage.addChild(data.background);
+    //parallax background
+    data.stage.addChild(
+        data.layers[(data.player.y/settings.tileSize)-1].stage);
+    //player
+    data.stage.addChild(data.player);
+    //parallax current
+    data.stage.addChild(
+        data.layers[(data.player.y/settings.tileSize)].stage);
+    //parallax foreground
+    data.stage.addChild(
+        data.layers[(data.player.y/settings.tileSize)-1].stage);
+    
+    game.rootScene.addChild(data.stage);
+    
 }
     
+var parallaxForward = function (settings, data, game){
+    var newBack, newFront, newCenter;
+    //newCenter =
+}
+    
+var parallaxBack = function (settings, data, game){
+    
+}
