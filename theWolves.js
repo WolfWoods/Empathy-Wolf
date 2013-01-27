@@ -20,12 +20,30 @@ var loadWolves = function (settings, data, game) {
             else{
                 return false;
             }
-        }; // time + delay
+        }; 
         
-        wolves[i].pursue = function () {};
-        wolves[i].turn = function () {};
-        wolves[i].awareOfPlayer = function () {};
-        wolves[i].fidget = function () {};
+        wolves[i].pursue = function () {
+            var wolf = this.sprite;
+        };
+        wolves[i].turn = function () {
+            var wolf = this.sprite;
+        };
+        wolves[i].awareOfPlayer = function () {
+            var wolf = this.sprite;
+        };
+        wolves[i].fidget = function () {
+            var wolf = this.sprite;
+            if(wolf.facingRight){
+                wolf.x += 10
+            }
+            else{
+                wolf.x -= 10
+            }
+                
+        };
+        wolves[i].hunt = function () {
+            var wolf = this.sprite;
+        };
     }
 }
 
@@ -33,13 +51,31 @@ var loadWolves = function (settings, data, game) {
 var wolvesBehave = function () {
     var d = new Date();
     var now = d.getTime();
+    var actRate = 500; //ms
     var wolf;
     
     for (var i = 0; i < wolves.length; i++){
         wolf = wolves[i];
-        if(wolf.timeToAct){
+        if(wolf.pursuing){
             if(wolf.awareOfPlayer){
+                
             }
+        }
+        else if(wolf.timeToAct){
+            if(wolf.awareOfPlayer){
+                wolf.pursue();
+            }
+            else if (wolf.hunting){
+                wolf.hunt();
+            }
+            else{
+                if(now % 2){
+                    wolf.turn;
+                }
+                wolf.hunting = false;
+                wolf.awareOfPlayer = false;
+            }
+            wolf.nextActionAt = now + actRate;
         }
         else{
             wolf.fidget();
