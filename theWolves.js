@@ -8,6 +8,9 @@ var loadWolves = function (settings, data, game) {
         wolves[i].sprite.y = 365;
         wolves[i].speed = 5;
         data.layers[wolves[i].startY].stage.addChild(wolves[i].sprite);
+        var sprite = {val:0,sprite:wolves[i].sprite};
+        data.layers[wolves[i].startY].spriteList.push(sprite);
+        
         
         wolves[i].facingRight = true;
         wolves[i].nextActionAt = d.getTime() + 1;
@@ -43,6 +46,8 @@ var loadWolves = function (settings, data, game) {
         wolves[i].turn = function () {
             var wolf = this.sprite;
             wolf.facingRight = !wolf.facingRight;
+            
+            //wolf.scale(-1, 1);
         };
         
         wolves[i].awareOfPlayer = function (data) {
@@ -73,6 +78,10 @@ var loadWolves = function (settings, data, game) {
             var wolf = this.sprite;
         };
     }
+    
+    game.rootScene.addEventListener('enterframe', function(){
+        
+    });
 }
 
     

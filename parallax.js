@@ -43,9 +43,7 @@ var processParallax = function (settings, data, game) {
 
         for (var j = 0; j < data.CollisionMatrix[i].length; j++) {
             data.layers[i].spriteList[j] = {
-                val: data.CollisionMatrix[i][j],
-                floorSprite: {},
-                celingSprite: {}
+                val: data.CollisionMatrix[i][j]
             };
             //choose tree sprite
 
