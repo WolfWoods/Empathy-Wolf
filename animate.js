@@ -13,5 +13,8 @@ var setTreeOpacity = function (layer, opacity) {
     for(var i = 0; i < layer.spriteList.length; i++){
         if(layer.spriteList[i] && layer.spriteList[i].sprite)
         layer.spriteList[i].sprite.opacity = opacity;
+        layer.spriteList[i].floorSprite.opacity = opacity;
+        layer.spriteList[i].celingSprite.opacity = opacity;
+        
     }
 }
