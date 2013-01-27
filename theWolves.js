@@ -15,6 +15,7 @@ var loadWolves = function (settings, data, game) {
         wolves[i].timeToAct = function (currentTime) {
             if(currentTime > this.nextActionAt){
                 return true;
+
             }
             return false;
         }; 
