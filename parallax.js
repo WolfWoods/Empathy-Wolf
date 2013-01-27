@@ -27,7 +27,9 @@ var processParallax = function (settings, data, game) {
         };
         for (var j = 0; j < data.CollisionMatrix[i].length; j++) {
             data.layers[i].spriteList[j] = {
-                val: data.CollisionMatrix[i][j]
+                val: data.CollisionMatrix[i][j],
+                floorSprite: {},
+                celingSprite: {}
             };
             //choose tree sprite
 
@@ -41,6 +43,23 @@ var processParallax = function (settings, data, game) {
                     data.layers[i].spriteList[j].sprite = layerElement;
                 }();
             }
+
+            //top & bottom
+            var g = function () {
+                //bottom
+                data.layers[i].spriteList[j].floorSprite = new Sprite(40, 40);
+                data.layers[i].spriteList[j].floorSprite.image = game.assets["img/banana.png"];
+                data.layers[i].spriteList[j].floorSprite.x = j * settings.tileSize;
+                data.layers[i].spriteList[j].floorSprite.y = 450 - settings.tileSize;
+                data.layers[i].stage.addChild(data.layers[i].spriteList[j].floorSprite);
+
+                //top
+                data.layers[i].spriteList[j].celingSprite = new Sprite(40, 40);
+                data.layers[i].spriteList[j].celingSprite.image = game.assets["img/banana.png"];
+                data.layers[i].spriteList[j].celingSprite.x = j * settings.tileSize;
+                data.layers[i].spriteList[j].celingSprite.y = 0;
+                data.layers[i].stage.addChild(data.layers[i].spriteList[j].celingSprite);
+            }();
         }
 
     }
@@ -68,28 +87,28 @@ var setLayers = function (settings, data, game) {
         data.backParallax.scaleX = 0.5;
         data.backParallax.scaleY = 0.5;
         //offset
-        if(!data.backParallaxOffsetApplied){
+        if (!data.backParallaxOffsetApplied) {
             data.backParallax.y += -50;
             data.backParallaxOffsetApplied = true;
         }
 
-        
+
     } else {
         data.backParallax = new Group();
     }
-    
+
     //opacity
     setTreeOpacity(currentLayer, 1);
     data.currentParallax = currentLayer.stage;
     data.currentParallax.scaleX = 1;
     data.currentParallax.scaleY = 1;
-        //offset
-        if(!data.currentParallaxOffsetApplied){
-            data.currentParallax.y += 0;
-            data.currentParallaxOffsetApplied = true;
-        }
-    
-    
+    //offset
+    if (!data.currentParallaxOffsetApplied) {
+        data.currentParallax.y += 0;
+        data.currentParallaxOffsetApplied = true;
+    }
+
+
     if (typeof forwardLayer !== 'undefined') {
         //final states
         //opacity
@@ -99,7 +118,7 @@ var setLayers = function (settings, data, game) {
         data.forwardParallax.scaleX = 2;
         data.forwardParallax.scaleY = 2;
         //offset
-        if(!data.forwardParallaxOffsetApplied){
+        if (!data.forwardParallaxOffsetApplied) {
             data.forwardParallax.y += 50;
             data.forwardParallaxOffsetApplied = true;
         }
@@ -115,10 +134,10 @@ var setLayers = function (settings, data, game) {
 
     //fix player shift
     data.playerGroup.y += settings.MapHeight * settings.tileSize - data.player.y
-    
+
     //fix player to tree height
     data.playerGroup.y = data.playerGroup.y - 3 * settings.tileSize;
-    
+
     //data.stage = new Group();
     //map
     newParallaxStage.addChild(data.mapGroup);
