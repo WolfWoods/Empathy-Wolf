@@ -84,8 +84,8 @@ var setInput = function (settings, data, game){
         // Move up to farther parallax layer
         if (game.input.up) 
         {
-            if (!data.map.hitTest(x, y + settings.tileSize) &&
-                y + settings.tileSize > settings.tileSize) 
+            if (!data.map.hitTest(x, y - settings.tileSize) &&
+                y - settings.tileSize > settings.tileSize) 
             {
                 player.y -= settings.tileSize;
                 
@@ -183,7 +183,7 @@ var setInput = function (settings, data, game){
         // Move down to nearer parallax layer
         if (game.input.down) 
         {
-            if (!data.map.hitTest(x, y - settings.tileSize) && 
+            if (!data.map.hitTest(x, y + settings.tileSize) && 
                 y + settings.tileSize < settings.MapHeight * settings.tileSize) 
             {
                 player.y += settings.tileSize;
