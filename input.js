@@ -46,7 +46,6 @@ var setInput = function (settings, data, game){
             if (!data.map.hitTest(x, y + settings.tileSize) &&
                 y + settings.tileSize > settings.tileSize) 
             {
-                data.stage.y -= settings.tileSize;
                 player.y -= settings.tileSize;
                 data.playerGroup.y += settings.tileSize;
                 data.mapGroup.y += settings.tileSize;
@@ -146,7 +145,6 @@ var setInput = function (settings, data, game){
             if (!data.map.hitTest(x, y - settings.tileSize) && 
                 y + settings.tileSize < settings.MapHeight * settings.tileSize) 
             {
-                data.stage.y += settings.tileSize;
                 player.y += settings.tileSize;
                 data.playerGroup.y -= settings.tileSize;
                 data.mapGroup.y -= settings.tileSize;
