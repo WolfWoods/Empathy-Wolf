@@ -16,6 +16,8 @@ var setInput = function (settings, data, game){
                     player.scale(-1, 1);
                     data.facingRight = !data.facingRight;
                 }
+                
+                // handle party people/player in array
             }
         }
 
@@ -27,13 +29,19 @@ var setInput = function (settings, data, game){
                     player.scale(-1, 1);
                     data.facingRight = !data.facingRight;
                 }
+                
+                // handle party people/player in array
+                
+                // handle finish line
             }
         }
     
         // Move up to farther parallax layer
         if (game.input.up) 
         {
-            if (!data.map.hitTest(x, y + settings.tileSize) && y + settings.tileSize < settings.MapHeight * settings.tileSize) {
+            if (!data.map.hitTest(x, y + settings.tileSize) &&
+                y + settings.tileSize > settings.tileSize) 
+            {
                 data.stage.y -= settings.tileSize;
                 player.y -= settings.tileSize;
                 
@@ -43,7 +51,7 @@ var setInput = function (settings, data, game){
                     for (var i = 1; i < data.PartyPeople.length; i++)
                     {
                         if (!data.map.hitTest(data.PartyPeople[i].x, data.PartyPeople[i].y + settings.tileSize) && 
-                            data.PartyPeople[i].y + settings.tileSize < settings.MapHeight * settings.tileSize &&
+                            data.PartyPeople[i].y + settings.tileSize > settings.tileSize &&
                             canParallaxShift)
                         {
                             data.PartyPeople[i].y -= settings.tileSize;
@@ -62,7 +70,7 @@ var setInput = function (settings, data, game){
                     for (var j = data.PartyPeople.length - 1; j >= 0; j--)
                     {
                         if (!data.map.hitTest(data.PartyPeople[j].x, data.PartyPeople[j].y + settings.tileSize) && 
-                            data.PartyPeople[j].y + settings.tileSize < settings.MapHeight * settings.tileSize &&
+                            data.PartyPeople[j].y + settings.tileSize > settings.tileSize &&
                             canParallaxShift)
                         {
                             data.PartyPeople[j].y -= settings.tileSize;
@@ -91,7 +99,7 @@ var setInput = function (settings, data, game){
                     for (k = playerPosition - 1; k >= 0; k--)
                     {
                         if (!data.map.hitTest(data.PartyPeople[k].x, data.PartyPeople[k].y + settings.tileSize) && 
-                            data.PartyPeople[k].y + settings.tileSize < settings.MapHeight * settings.tileSize &&
+                            data.PartyPeople[k].y + settings.tileSize > settings.tileSize &&
                             canParallaxShift)
                         {
                             data.PartyPeople[k].y -= settings.tileSize;
@@ -108,7 +116,7 @@ var setInput = function (settings, data, game){
                     for (k = playerPosition + 1; k < data.PartyPeople.length; k++)
                     {
                         if (!data.map.hitTest(data.PartyPeople[k].x, data.PartyPeople[k].y + settings.tileSize) && 
-                            data.PartyPeople[k].y + settings.tileSize < settings.MapHeight * settings.tileSize &&
+                            data.PartyPeople[k].y + settings.tileSize > settings.tileSize &&
                             canParallaxShift)
                         {
                             data.PartyPeople[k].y -= settings.tileSize;
@@ -128,7 +136,9 @@ var setInput = function (settings, data, game){
         // Move down to nearer parallax layer
         if (game.input.down) 
         {
-            if (!data.map.hitTest(x, y - settings.tileSize) && y + settings.tileSize > settings.tileSize) {
+            if (!data.map.hitTest(x, y - settings.tileSize) && 
+                y + settings.tileSize < settings.MapHeight * settings.tileSize) 
+            {
                 data.stage.y += settings.tileSize;
                 player.y += settings.tileSize;
                 
@@ -138,7 +148,7 @@ var setInput = function (settings, data, game){
                     for (var i = 1; i < data.PartyPeople.length; i++)
                     {
                         if (!data.map.hitTest(data.PartyPeople[i].x,data.PartyPeople[i].y - settings.tileSize) && 
-                            data.PartyPeople[i].y + settings.tileSize > settings.tileSize &&
+                            data.PartyPeople[i].y + settings.tileSize < settings.MapHeight * settings.tileSize &&
                             canParallaxShift)
                         {
                             data.PartyPeople[i].y += settings.tileSize;
@@ -157,7 +167,7 @@ var setInput = function (settings, data, game){
                     for (var j = data.PartyPeople.length - 1; j >= 0; j--)
                     {
                         if (!data.map.hitTest(data.PartyPeople[j].x,data.PartyPeople[j].y - settings.tileSize) && 
-                            data.PartyPeople[j].y + settings.tileSize > settings.tileSize &&
+                            data.PartyPeople[j].y + settings.tileSize < settings.MapHeight * settings.tileSize &&
                             canParallaxShift)
                         {
                             data.PartyPeople[j].y += settings.tileSize;
@@ -186,7 +196,7 @@ var setInput = function (settings, data, game){
                     for (k = playerPosition - 1; k >= 0; k--)
                     {
                         if (!data.map.hitTest(data.PartyPeople[k].x,data.PartyPeople[k].y - settings.tileSize) && 
-                            data.PartyPeople[j].y + settings.tileSize > settings.tileSize &&
+                            data.PartyPeople[k].y + settings.tileSize < settings.MapHeight * settings.tileSize &&
                             canParallaxShift)
                         {
                             data.PartyPeople[k].y += settings.tileSize;
@@ -203,7 +213,7 @@ var setInput = function (settings, data, game){
                     for (k = playerPosition + 1; k < data.PartyPeople.length; k++)
                     {
                         if (!data.map.hitTest(data.PartyPeople[k].x,data.PartyPeople[k].y - settings.tileSize) && 
-                            data.PartyPeople[k].y + settings.tileSize > settings.tileSize &&
+                            data.PartyPeople[k].y + settings.tileSize < settings.MapHeight * settings.tileSize &&
                             canParallaxShift)
                         {
                             data.PartyPeople[k].y += settings.tileSize;
