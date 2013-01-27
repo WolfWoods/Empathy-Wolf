@@ -12,13 +12,33 @@ var setInput = function (settings, data, game){
         // Move left
         if (game.input.left) {
             if (!data.map.hitTest(x - settings.tileSize, y)) {
-                player.x -= settings.tileSize;
-                if (data.facingRight) {
-                    player.scale(-1, 1);
-                    data.facingRight = !data.facingRight;
+                if (data.PartyPeople[0].isPlayer)
+                {
+                    for (var i = 0; i < data.PartyPeople.length; i++)
+                    {
+                        data.PartyPeople[i].x -= settings.tileSize;   
+                    }
+                }
+                else
+                {                
+                    for (var k = 0; k < data.PartyPeople.length; k++)
+                    {
+                        if (data.PartyPeople[k].isPlayer)
+                        {
+                            var ppSwap = data.PartyPeople[k-1];
+                            data.PartyPeople[k-1] = data.PartyPeople[k];
+                            data.PartyPeople[k] = ppSwap;
+                            break;
+                        }
+                        
+                    }
                 }
                 
-                // handle party people/player in array
+                if (data.facingRight) {
+                    for (var j = 0; j < data.PartyPeople.length; j++)
+                        data.PartyPeople[j].scale(-1, 1);
+                    data.facingRight = false;
+                }
             }
         }
 
@@ -26,17 +46,38 @@ var setInput = function (settings, data, game){
         // Move right
         if (game.input.right) {
             if (!data.map.hitTest(x + settings.tileSize, y)) { 
-                player.x += settings.tileSize;
-                if (!data.facingRight) {
-                    player.scale(-1, 1);
-                    data.facingRight = !data.facingRight;
+                if (data.PartyPeople[data.PartyPeople.length - 1].isPlayer)
+                {
+                    for (var i = 0; i < data.PartyPeople.length; i++)
+                    {
+                        data.PartyPeople[i].x += settings.tileSize;   
+                    }
                 }
+                else
+                {                
+                    for (var k = 0; k < data.PartyPeople.length; k++)
+                    {
+                        if (data.PartyPeople[k].isPlayer)
+                        {
+                            var ppSwap = data.PartyPeople[k+1];
+                            data.PartyPeople[k+1] = data.PartyPeople[k];
+                            data.PartyPeople[k] = ppSwap;
+                            break;
+                        }
+                        
+                    }
+                }
+                
+                if (!data.facingRight) {
+                    for (var j = 0; j < data.PartyPeople.length; j++)
+                        data.PartyPeople[j].scale(-1, 1);
+                    data.facingRight = true;
+                }
+                
                 if (player.x >= data.FinishLineX * settings.tileSize)
                 {
                     ShowTitleScreen(data.PartyPeople.length, settings, data, game);
                 }
-                
-                // handle party people/player in array
             }
         }
     
