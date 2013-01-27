@@ -1,7 +1,5 @@
 var setInput = function (settings, data, game){
     var player = data.player;
-    var stage = data.stage;
-    
     player.addEventListener('enterframe', function (e) {
             var x = player.x;
             var y = player.y;
@@ -13,7 +11,7 @@ var setInput = function (settings, data, game){
                 if (!data.map.hitTest(x - settings.tileSize, y)) {
                     player.x -= settings.tileSize;
                     if (data.facingRight) {
-                        player.rotate(180);
+                        player.scale(-1, 1);
                         data.facingRight = !data.facingRight;
                     }
                 }
@@ -23,7 +21,7 @@ var setInput = function (settings, data, game){
                 if (!data.map.hitTest(x + settings.tileSize, y)) {
                     player.x += settings.tileSize;
                     if (!data.facingRight) {
-                        player.rotate(180);
+                        player.scale(-1, 1);
                         data.facingRight = !data.facingRight;
                     }
                 }
@@ -46,11 +44,12 @@ var setInput = function (settings, data, game){
             {
                 for (var i = 0; i < data.AbandonedPeople.length; i++) {
                     if (data.AbandonedPeople[i].startY * settings.tileSize == player.y) {
-                        if (data.AbandonedPeople[i].startX * settings.tileSize >= player.x - 1 && data.AbandonedPeople[i].startX * settings.tileSize <= player.x + 1) {
+                        if (data.AbandonedPeople[i].startX * settings.tileSize >= player.x - settings.tileSize && 
+                            data.AbandonedPeople[i].startX * settings.tileSize <= player.x + settings.tileSize) {
                             alert("grab");
                             data.PartyPeople.push(data.AbandonedPeople[i]);
                             data.AbandonedPeople.splice(i, 1);
-                            game.input.a = null;
+                            game.input.x = null;
                             break;
                         }
                     }
@@ -58,11 +57,12 @@ var setInput = function (settings, data, game){
 
                 for (var i = 0; i < data.WoodsPeople.length; i++) {
                     if (data.WoodsPeople[i].startY * settings.tileSize == player.y) {
-                        if (data.WoodsPeople[i].startX * settings.tileSize >= player.x - 1 && data.WoodsPeople[i].startX * settings.tileSize <= player.x + 1) {
+                        if (data.WoodsPeople[i].startX * settings.tileSize >= player.x - settings.tileSize && 
+                            data.WoodsPeople[i].startX * settings.tileSize <= player.x + settings.tileSize) {
                             alert("grab");
                             data.PartyPeople.push(data.WoodsPeople[i]);
                             data.WoodsPeople.splice(i, 1);
-                            game.input.a = null;
+                            game.input.x = null;
                             break;
                         }
                     }
@@ -77,7 +77,7 @@ var setInput = function (settings, data, game){
                     data.AbandonedPeople[data.AbandonedPeople.length - 1].startX = player.x / settings.tileSize;
                     data.AbandonedPeople[data.AbandonedPeople.length - 1].startY = player.y / settings.tileSize;
                     data.PartyPeople.splice(data.PartyPeople.length - 1, 1);
-                    game.input.b = null;
+                    game.input.z = null;
                 }
             }
         });

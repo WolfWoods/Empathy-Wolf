@@ -47,6 +47,7 @@ window.onload = function () {
 
         setLayers(settings, data, game);
 
+
         game.rootScene.addEventListener('enterframe', function (e) {
             var x = Math.min((game.width - 40) / 2 - player.x, 0);
             x = Math.max(game.width, x + data.map.width) - data.map.width;
