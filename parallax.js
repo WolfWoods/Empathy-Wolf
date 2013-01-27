@@ -50,25 +50,67 @@ var setLayers = function (settings, data, game) {
 
     var newParallaxStage = new Group();
 
+    var backLayer = data.layers[(data.player.y / settings.tileSize) - 1];
+    var currentLayer = data.layers[(data.player.y / settings.tileSize)];
+    var forwardLayer = data.layers[(data.player.y / settings.tileSize) + 1];
+
     data.playerGroup = new Group();
     data.playerGroup.addChild(data.player);
     data.mapGroup = new Group();
     data.mapGroup.addChild(data.map);
 
-    if (typeof data.layers[(data.player.y / settings.tileSize) - 1] !== 'undefined') {
-        data.backParallax = data.layers[(data.player.y / settings.tileSize) - 1].stage;
+    if (typeof backLayer !== 'undefined') {
+        //final states
+        //opacity
+        setTreeOpacity(backLayer, 0.5);
+        data.backParallax = backLayer.stage;
+        //scale
+        data.backParallax.scaleX = 0.5;
+        data.backParallax.scaleY = 0.5;
+        //offset
+        if(!data.backParallaxOffsetApplied){
+            data.backParallax.y += -50;
+            data.backParallaxOffsetApplied = true;
+        }
+
+        
     } else {
         data.backParallax = new Group();
     }
-    data.currentParallax = data.layers[(data.player.y / settings.tileSize)].stage;
-    if (typeof data.layers[(data.player.y / settings.tileSize) + 1] !== 'undefined') {
-        data.forwardParallax = data.layers[(data.player.y / settings.tileSize) + 1].stage;
+    
+    //opacity
+    setTreeOpacity(currentLayer, 1);
+    data.currentParallax = currentLayer.stage;
+    data.currentParallax.scaleX = 1;
+    data.currentParallax.scaleY = 1;
+        //offset
+        if(!data.currentParallaxOffsetApplied){
+            data.currentParallax.y += 0;
+            data.currentParallaxOffsetApplied = true;
+        }
+    
+    
+    if (typeof forwardLayer !== 'undefined') {
+        //final states
+        //opacity
+        setTreeOpacity(forwardLayer, 0.5);
+        data.forwardParallax = forwardLayer.stage;
+        //scale
+        data.forwardParallax.scaleX = 2;
+        data.forwardParallax.scaleY = 2;
+        //offset
+        if(!data.forwardParallaxOffsetApplied){
+            data.forwardParallax.y += 50;
+            data.forwardParallaxOffsetApplied = true;
+        }
+
     } else {
         data.backParallax = new Group();
     }
 
     data.playerGroup.y = data.playerGroup.y + 250;
     data.mapGroup.y = data.mapGroup.y + 250;
+
 
     //data.stage = new Group();
     //map
@@ -85,9 +127,9 @@ var setLayers = function (settings, data, game) {
     newParallaxStage.addChild(data.forwardParallax);
 
     //animate
-    
-    
-    if(data.parallaxStage){
+
+
+    if (data.parallaxStage) {
         data.stage.removeChild(data.parallaxStage);
     }
     data.parallaxStage = newParallaxStage;
@@ -95,6 +137,6 @@ var setLayers = function (settings, data, game) {
     game.rootScene.removeChild(data.stage);
     game.rootScene.addChild(data.stage);
 
-    
+
 
 }
