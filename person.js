@@ -3,12 +3,24 @@ var loadPeople = function (settings, data, game){
             data.WoodsPeople[i].sprite = new Sprite(80, 120);
             data.WoodsPeople[i].sprite.image = game.assets["img/people_woman_old.png"];
             data.WoodsPeople[i].sprite.x = data.WoodsPeople[i].startX * settings.tileSize;
-            data.WoodsPeople[i].sprite.y = 365;
+            data.WoodsPeople[i].sprite.y = 325;
             data.layers[data.WoodsPeople[i].startY].stage.addChild(data.WoodsPeople[i].sprite);
-        
     }
 }
-
+    
+var correctDisplays = function (){
+    //clear party people
+    for (var i = 0; i < data.WoodsPeople.length; i++) {
+            data.WoodsPeople[i].sprite = new Sprite(80, 120);
+            data.WoodsPeople[i].sprite.image = game.assets["img/people_woman_old.png"];
+            data.WoodsPeople[i].sprite.x = data.WoodsPeople[i].startX * settings.tileSize;
+            data.WoodsPeople[i].sprite.y = 325;
+            data.layers[data.WoodsPeople[i].startY].stage.addChild(data.WoodsPeople[i].sprite);
+    }
+    
+    //clear 
+}
+    
 var AddToParty = function (person, settings, data, game)
     {
         person.wolfTimer = -1;
