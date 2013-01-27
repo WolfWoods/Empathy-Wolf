@@ -1,5 +1,6 @@
 var setInput = function (settings, data, game){
     var player = data.player;
+    var stage = data.stage;
     player.addEventListener('enterframe', function (e) {
             var x = player.x;
             var y = player.y;
