@@ -47,6 +47,7 @@ window.onload = function () {
         data.PartyPeople.push(player);
         player.isPlayer = true;
         data.shownGameOverScreen = false;
+        data.parallaxCooldown = 0;
 
         setInput(settings,data,game);
 
@@ -66,7 +67,10 @@ window.onload = function () {
         var diff = data.stage.x - x;
         data.stage.x = x;
         data.background.x += diff;
-
+        if (data.parallaxCooldown > 0)
+            data.parallaxCooldown--;
+        if (data.parallaxCooldown < 0)
+            data.parallaxCooldown = 0;
     });
 
         
