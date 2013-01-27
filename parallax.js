@@ -42,37 +42,59 @@ var processParallax = function (settings, data, game) {
                 }();
             }
         }
-        
+
     }
 }
-    
-var setLayers = function (settings, data, game){
-    
+
+var setLayers = function (settings, data, game) {
+
+    var newParallaxStage = new Group();
+
+    data.playerGroup = new Group();
+    data.playerGroup.addChild(data.player);
+    data.mapGroup = new Group();
+    data.mapGroup.addChild(data.map);
+
+    if (typeof data.layers[(data.player.y / settings.tileSize) - 1] !== 'undefined') {
+        data.backParallax = data.layers[(data.player.y / settings.tileSize) - 1].stage;
+    } else {
+        data.backParallax = new Group();
+    }
+    data.currentParallax = data.layers[(data.player.y / settings.tileSize)].stage;
+    if (typeof data.layers[(data.player.y / settings.tileSize) + 1] !== 'undefined') {
+        data.forwardParallax = data.layers[(data.player.y / settings.tileSize) + 1].stage;
+    } else {
+        data.backParallax = new Group();
+    }
+
+    data.playerGroup.y = data.playerGroup.y + 250;
+    data.mapGroup.y = data.mapGroup.y + 250;
+
+    //data.stage = new Group();
     //map
-    data.stage.addChild(data.map);
+    newParallaxStage.addChild(data.mapGroup);
     //background
-    data.stage.addChild(data.background);
+    newParallaxStage.addChild(data.background);
     //parallax background
-    data.stage.addChild(
-        data.layers[(data.player.y/settings.tileSize)-1].stage);
+    newParallaxStage.addChild(data.backParallax);
     //player
-    data.stage.addChild(data.player);
+    newParallaxStage.addChild(data.playerGroup);
     //parallax current
-    data.stage.addChild(
-        data.layers[(data.player.y/settings.tileSize)].stage);
+    newParallaxStage.addChild(data.currentParallax);
     //parallax foreground
-    data.stage.addChild(
-        data.layers[(data.player.y/settings.tileSize)-1].stage);
+    newParallaxStage.addChild(data.forwardParallax);
+
+    //animate
     
+    
+    if(data.parallaxStage){
+        data.stage.removeChild(data.parallaxStage);
+    }
+    data.parallaxStage = newParallaxStage;
+    data.stage.addChild(data.parallaxStage);
+    game.rootScene.removeChild(data.stage);
     game.rootScene.addChild(data.stage);
+
     
-}
-    
-var parallaxForward = function (settings, data, game){
-    var newBack, newFront, newCenter;
-    //newCenter =
-}
-    
-var parallaxBack = function (settings, data, game){
-    
+
 }

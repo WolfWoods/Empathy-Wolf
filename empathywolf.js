@@ -17,6 +17,7 @@ window.onload = function () {
         data.stage = new Group();
         
         data.player = new Sprite(80, 120);
+        
         data.background = new Sprite(800,800);
         data.background.image = game.assets['img/background.png'];
         data.background.x = 0;
@@ -46,16 +47,17 @@ window.onload = function () {
         setInput(settings,data,game);
 
         setLayers(settings, data, game);
-
-
+        
         game.rootScene.addEventListener('enterframe', function (e) {
-            var x = Math.min((game.width - 40) / 2 - player.x, 0);
-            x = Math.max(game.width, x + data.map.width) - data.map.width;
-            stage.x = x;
-            for (var i = 0; i < data.layers.length; i++) {
-                data.layers[i].stage.x = x; //replace with SET VIEW
-            }
-        });
+        var x = Math.min((game.width - 40) / 2 - data.player.x, 0);
+        x = Math.max(game.width, x + data.map.width) - data.map.width;
+        var diff = data.stage.x - x;
+        data.stage.x = x;
+        data.background.x += diff;
+
+    });
+
+        
     }
     game.start();
 };

@@ -11,9 +11,11 @@ var setInput = function (settings, data, game){
             if (game.input.left) {
                 if (!data.map.hitTest(x - settings.tileSize, y)) {
                     player.x -= settings.tileSize;
+                    
                     if (data.facingRight) {
                         player.scale(-1, 1);
                         data.facingRight = !data.facingRight;
+                        
                     }
                 }
             }
@@ -21,22 +23,27 @@ var setInput = function (settings, data, game){
             if (game.input.right) {
                 if (!data.map.hitTest(x + settings.tileSize, y)) {
                     player.x += settings.tileSize;
+                    
                     if (!data.facingRight) {
                         player.scale(-1, 1);
                         data.facingRight = !data.facingRight;
                     }
                 }
             }
-            if (game.input.up) {
+            if (game.input.down) {
                 if (!data.map.hitTest(x, y + settings.tileSize) && y + settings.tileSize < settings.MapHeight * settings.tileSize) {
-                    stage.y -= settings.tileSize;
                     player.y += settings.tileSize;
+                    data.playerGroup.y -= settings.tileSize;
+                    data.mapGroup.y -= settings.tileSize;
+                    setLayers(settings,data,game);
                 }
             }
-            if (game.input.down) {
+            if (game.input.up) {
                 if (!data.map.hitTest(x, y - settings.tileSize) && y + settings.tileSize > settings.tileSize) {
-                    stage.y += settings.tileSize;
                     player.y -= settings.tileSize;
+                    data.playerGroup.y += settings.tileSize;
+                    data.mapGroup.y += settings.tileSize;
+                    setLayers(settings,data,game);
                 }
             }
 
