@@ -36,7 +36,7 @@ var processParallax = function (settings, data, game) {
                     var layerElement = new Sprite(40, 450);
                     layerElement.image = game.assets["img/tree_1wide_split.png"];
                     layerElement.x = j * settings.tileSize;
-                    layerElement.y = i * 3;
+                    layerElement.y = 0;
                     data.layers[i].stage.addChild(layerElement);
                     data.layers[i].spriteList[j].sprite = layerElement;
                 }();
@@ -108,10 +108,17 @@ var setLayers = function (settings, data, game) {
         data.backParallax = new Group();
     }
 
+    //fix map relative to player
     data.playerGroup.y = data.playerGroup.y + 250;
     data.mapGroup.y = data.mapGroup.y + 250;
 
 
+    //fix player shift
+    data.playerGroup.y += settings.MapHeight * settings.tileSize - data.player.y
+    
+    //fix player to tree height
+    data.playerGroup.y = data.playerGroup.y - 3 * settings.tileSize;
+    
     //data.stage = new Group();
     //map
     newParallaxStage.addChild(data.mapGroup);
