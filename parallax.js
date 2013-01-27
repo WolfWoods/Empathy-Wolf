@@ -25,30 +25,7 @@ var processParallax = function (settings, data, game) {
             spriteList: [],
             stage: new Group()
         };
-        
-        
-        
-        for (var j = 0; j < data.CollisionMatrix[i].length; j++) {
-            data.layers[i].spriteList[j] = {
-                val: data.CollisionMatrix[i][j],
-                floorSprite: {},
-                celingSprite: {}
-            };
-            //choose tree sprite
-
-            if (data.layers[i].spriteList[j].val === 1) {
-                var f = function () {
-                    var layerElement = new Sprite(40, 450);
-                    layerElement.image = game.assets["img/tree_1wide_split.png"];
-                    layerElement.x = j * settings.tileSize;
-                    layerElement.y = 0;
-                    data.layers[i].stage.addChild(layerElement);
-                    data.layers[i].spriteList[j].sprite = layerElement;
-                }();
-            }
-
-        }
-var g = function () {
+        var g = function () {
                 //bottom
                 data.layers[i].floorSprite = new Sprite(settings.MapLength * settings.tileSize, settings.tileSize);
                 data.layers[i].floorSprite.image = game.assets["img/banana.png"];
@@ -63,7 +40,81 @@ var g = function () {
                 data.layers[i].celingSprite.y = 0;
                 data.layers[i].stage.addChild(data.layers[i].celingSprite);
             }();
+        
+        for (var j = 0; j < data.CollisionMatrix[i].length; j++) {
+            data.layers[i].spriteList[j] = {
+                val: data.CollisionMatrix[i][j],
+                floorSprite: {},
+                celingSprite: {}
+            };
+            //choose tree sprite
+
+            if (data.layers[i].spriteList[j].val === 1) {
+                if (j - 2 >= 0 &&
+                    data.layers[i].spriteList[j-1].val === 1 &&
+                    data.layers[i].spriteList[j-2].val === 1)
+                {
+                    data.layers[i].spriteList[j-2].width = 120;
+                    data.layers[i].spriteList[j-1].width = 0;
+                    data.layers[i].spriteList[j].width = 0;
+                }
+                else if (j - 1 >= 0 &&
+                         data.layers[i].spriteList[j-1].val === 1)
+                {
+                    data.layers[i].spriteList[j-1].width = 80;
+                    data.layers[i].spriteList[j].width = 0;  
+                }
+                else
+                {
+                    data.layers[i].spriteList[j].width = 40;
+                }
+            }    
+        }
+
     }
+    
+    for (var m = 0; m < data.layers.length; m++)
+    {
+        for (var n = 0; n < data.layers[m].spriteList.length; n++)
+        {
+            if (data.layers[m].spriteList[n].width === 120)
+            {
+                var f = function () {
+                    var layerElement = new Sprite(120, 450);
+                    layerElement.image = game.assets["img/tree_3wide_split.png"];
+                    layerElement.x = n * settings.tileSize;
+                    layerElement.y = 0;
+                    data.layers[m].stage.addChild(layerElement);
+                    data.layers[m].spriteList[n].sprite = layerElement;
+                }();
+            }
+            else if (data.layers[m].spriteList[n].width === 80)
+            {
+                var g = function () {
+                    var layerElement = new Sprite(80, 450);
+                    if (Math.random() >= 0.5)
+                        layerElement.image = game.assets["img/tree_2wide_split.png"];
+                    else
+                        layerElement.image = game.assets["img/tree_2wide_full.png"];    
+                    layerElement.x = n * settings.tileSize;
+                    layerElement.y = 0;
+                    data.layers[m].stage.addChild(layerElement);
+                    data.layers[m].spriteList[n].sprite = layerElement;
+                }();
+            }
+            else if (data.layers[m].spriteList[n].width === 40)
+            {
+                var h = function () {
+                    var layerElement = new Sprite(40, 450);
+                    layerElement.image = game.assets["img/tree_1wide_split.png"];
+                    layerElement.x = n * settings.tileSize;
+                    layerElement.y = 0;
+                    data.layers[m].stage.addChild(layerElement);
+                    data.layers[m].spriteList[n].sprite = layerElement;
+                }();
+            }
+        }
+    }         
 }
 
 var setLayers = function (settings, data, game) {

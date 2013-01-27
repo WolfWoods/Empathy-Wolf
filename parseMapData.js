@@ -26,11 +26,11 @@ var parseMapData = function (settings, data) {
             if (mapLayout[i][j] === "B") {//B is Tree
                 data.CollisionMatrix[i][j] = 1;
                 data.BackgroundSpriteMatrix[i][j] = -1;
-            }
-            else{
+            } else {
                 data.CollisionMatrix[i][j] = 0;
                 data.BackgroundSpriteMatrix[i][j] = 0;
             }
+            
             if (mapLayout[i][j] === "C") {//C is NPC
                 data.WoodsPeople.push({startX: j, startY: i, isPlayer: false, personID: k, dead: false});
                 k++;
