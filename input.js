@@ -300,7 +300,8 @@ var setInput = function (settings, data, game){
                 }
             }
             for (var j = 0; j < data.WoodsPeople.length; j++) {
-                if (data.WoodsPeople[i].startY * settings.tileSize == player.y) {
+                if (data.WoodsPeople[j].startY * settings.tileSize == player.y) {
+
                     if (data.WoodsPeople[j].startX * settings.tileSize >= player.x - settings.tileSize && 
                         data.WoodsPeople[j].startX * settings.tileSize <= player.x + settings.tileSize) 
                     {

@@ -9,17 +9,17 @@ var loadPeople = function (settings, data, game){
     }
 }
 
-var AddToParty = function (person, direction, settings, data, game)
+var AddToParty = function (person, settings, data, game)
     {
         person.wolfTimer = -1;
         
         if (!data.facingRight)
         {
-            person.x = data.PartyPeople[data.PartyPeople.length - 1].x + settings.tileSize;
+            person.x = data.PartyPeople[data.PartyPeople.length - 1].sprite.x + settings.tileSize;
             person.scale(-1, 1);
         }
         else
-            person.x = data.PartyPeople[0].x - settings.tileSize;
+            person.x = data.PartyPeople[0].sprite.x - settings.tileSize;
     }
     
 var RemoveFromParty = function (person, settings, data, game)
