@@ -51,6 +51,7 @@ var setLayers = function (settings, data, game) {
     var newParallaxStage = new Group();
 
     var backLayer = data.layers[(data.player.y / settings.tileSize) - 1];
+    var currentLayer = data.layers[(data.player.y / settings.tileSize)];
     var forwardLayer = data.layers[(data.player.y / settings.tileSize) + 1];
 
     data.playerGroup = new Group();
@@ -60,27 +61,48 @@ var setLayers = function (settings, data, game) {
 
     if (typeof backLayer !== 'undefined') {
         //final states
+        //opacity
         setTreeOpacity(backLayer, 0.5);
         data.backParallax = backLayer.stage;
         //scale
         data.backParallax.scaleX = 0.5;
-        data.backParallax.scaleX = 0.5;
+        data.backParallax.scaleY = 0.5;
         //offset
-        data.backParallax.y += -50;
+        if(!data.backParallaxOffsetApplied){
+            data.backParallax.y += -50;
+            data.backParallaxOffsetApplied = true;
+        }
 
         
     } else {
         data.backParallax = new Group();
     }
-    data.currentParallax = data.layers[(data.player.y / settings.tileSize)].stage;
+    
+    //opacity
+    setTreeOpacity(currentLayer, 1);
+    data.currentParallax = currentLayer.stage;
+    data.currentParallax.scaleX = 1;
+    data.currentParallax.scaleY = 1;
+        //offset
+        if(!data.currentParallaxOffsetApplied){
+            data.currentParallax.y += 0;
+            data.currentParallaxOffsetApplied = true;
+        }
+    
+    
     if (typeof forwardLayer !== 'undefined') {
         //final states
+        //opacity
         setTreeOpacity(forwardLayer, 0.5);
         data.forwardParallax = forwardLayer.stage;
+        //scale
         data.forwardParallax.scaleX = 2;
-        data.forwardParallax.scaleX = 2;
+        data.forwardParallax.scaleY = 2;
         //offset
-        data.forwardParallax.y += 50;
+        if(!data.forwardParallaxOffsetApplied){
+            data.forwardParallax.y += 50;
+            data.forwardParallaxOffsetApplied = true;
+        }
 
     } else {
         data.backParallax = new Group();
