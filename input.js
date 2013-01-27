@@ -49,8 +49,8 @@ var setInput = function (settings, data, game){
                 y + settings.tileSize > settings.tileSize) 
             {
                 player.y -= settings.tileSize;
-                data.playerGroup.y += settings.tileSize;
-                data.mapGroup.y += settings.tileSize;
+                
+
                 setLayers(settings,data,game);
                 
                 canParallaxShift = true;
