@@ -71,6 +71,14 @@ window.onload = function () {
             data.parallaxCooldown--;
         if (data.parallaxCooldown < 0)
             data.parallaxCooldown = 0;
+        for (var i = 0; i < data.AbandonedPeople.length; i++)
+        {
+            data.AbandonedPeople[i].wolfTimer--;
+            if (data.AbandonedPeople[i].wolfTimer === 0 && !data.AbandonedPeople[i].dead)
+            {
+                EatenByWolf(data.AbandonedPeople[i], settings, data, game);  
+            }   
+        }
     });
 
         

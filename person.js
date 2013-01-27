@@ -28,27 +28,19 @@ var AddToParty = function (person, settings, data, game)
         if (!data.facingRight)
         {
             person.x = data.PartyPeople[data.PartyPeople.length - 1].sprite.x + settings.tileSize;
-            person.scale(-1, 1);
+            person.sprite.scale(-1, 1);
         }
         else
             person.x = data.PartyPeople[0].sprite.x - settings.tileSize;
+        person.y = person.startY * settings.tileSize;
     }
     
 var RemoveFromParty = function (person, settings, data, game)
     {
         person.startX = person.x;
-        person.startY = person.y;
+        person.startY = person.y / settings.tileSize;
         
         person.wolfTimer = game.fps * Math.floor(Math.random() * (15 - 7) + 7);
-        person.addEventListener('enterframe', function (e) 
-        {
-            person.wolfTimer--;
-            if (person.wolfTimer === 0 && !person.dead)
-            {
-                EatenByWolf(person, settings, data, game);  
-                return;
-            }
-        });
     } 
     
 var EatenByWolf = function (person, settings, data, game)
@@ -58,9 +50,9 @@ var EatenByWolf = function (person, settings, data, game)
             if (person.personID === data.AbandonedPeople[i].personID)
             {
                 data.AbandonedPeople[i].dead = true;
+                data.AbandonedPeople[i].sprite.rotate(90);
                 data.AbandonedPeople.splice(i,1);
                 break;
             }
         }
-        alert("EATED! AWOOOOOO!");
     }

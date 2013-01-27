@@ -16,18 +16,23 @@ var setInput = function (settings, data, game){
                 {
                     for (var i = 0; i < data.PartyPeople.length; i++)
                     {
-                        data.PartyPeople[i].x -= settings.tileSize;   
+                        if (data.PartyPeople[i].isPlayer)
+                            data.PartyPeople[i].x -= settings.tileSize;   
+                        else
+                            data.PartyPeople[i].sprite.x -= settings.tileSize;   
                     }
                 }
                 else
-                {                
+                {          
                     for (var k = 0; k < data.PartyPeople.length; k++)
                     {
                         if (data.PartyPeople[k].isPlayer)
                         {
                             var ppSwap = data.PartyPeople[k-1];
                             data.PartyPeople[k-1] = data.PartyPeople[k];
+                            data.PartyPeople[k-1].x = player.x - settings.tileSize;
                             data.PartyPeople[k] = ppSwap;
+                            data.PartyPeople[k].sprite.x = player.x + settings.tileSize;
                             break;
                         }
                         
@@ -36,7 +41,13 @@ var setInput = function (settings, data, game){
                 
                 if (data.facingRight) {
                     for (var j = 0; j < data.PartyPeople.length; j++)
-                        data.PartyPeople[j].scale(-1, 1);
+                    {
+                        if (data.PartyPeople[j].isPlayer)
+                            data.PartyPeople[j].scale(-1, 1);
+                        else
+                            data.PartyPeople[j].sprite.scale(-1, 1);
+                        
+                    }
                     data.facingRight = false;
                 }
             }
@@ -50,7 +61,10 @@ var setInput = function (settings, data, game){
                 {
                     for (var i = 0; i < data.PartyPeople.length; i++)
                     {
-                        data.PartyPeople[i].x += settings.tileSize;   
+                        if (data.PartyPeople[i].isPlayer)
+                            data.PartyPeople[i].x += settings.tileSize;   
+                        else
+                            data.PartyPeople[i].sprite.x += settings.tileSize;   
                     }
                 }
                 else
@@ -61,7 +75,9 @@ var setInput = function (settings, data, game){
                         {
                             var ppSwap = data.PartyPeople[k+1];
                             data.PartyPeople[k+1] = data.PartyPeople[k];
+                            data.PartyPeople[k+1].x = player.x + settings.tileSize;
                             data.PartyPeople[k] = ppSwap;
+                            data.PartyPeople[k].sprite.x = player.x - settings.tileSize;
                             break;
                         }
                         
@@ -70,7 +86,12 @@ var setInput = function (settings, data, game){
                 
                 if (!data.facingRight) {
                     for (var j = 0; j < data.PartyPeople.length; j++)
-                        data.PartyPeople[j].scale(-1, 1);
+                    {
+                        if (data.PartyPeople[j].isPlayer)
+                            data.PartyPeople[j].scale(-1, 1);
+                        else
+                            data.PartyPeople[j].sprite.scale(-1, 1);
+                    }
                     data.facingRight = true;
                 }
                 
@@ -97,8 +118,8 @@ var setInput = function (settings, data, game){
                 {
                     for (var i = 1; i < data.PartyPeople.length; i++)
                     {
-                        if (!data.map.hitTest(data.PartyPeople[i].x, data.PartyPeople[i].y + settings.tileSize) && 
-                            data.PartyPeople[i].y + settings.tileSize > settings.tileSize &&
+                        if (!data.map.hitTest(data.PartyPeople[i].x, data.PartyPeople[i].y - settings.tileSize) && 
+                            data.PartyPeople[i].y - settings.tileSize > -settings.tileSize &&
                             canParallaxShift)
                         {
                             data.PartyPeople[i].y -= settings.tileSize;
@@ -114,10 +135,10 @@ var setInput = function (settings, data, game){
                 }
                 else if (data.PartyPeople[data.PartyPeople.length - 1].isPlayer)
                 {
-                    for (var j = data.PartyPeople.length - 1; j >= 0; j--)
+                    for (var j = data.PartyPeople.length - 2; j >= 0; j--)
                     {
-                        if (!data.map.hitTest(data.PartyPeople[j].x, data.PartyPeople[j].y + settings.tileSize) && 
-                            data.PartyPeople[j].y + settings.tileSize > settings.tileSize &&
+                        if (!data.map.hitTest(data.PartyPeople[j].x, data.PartyPeople[j].y - settings.tileSize) && 
+                            data.PartyPeople[j].y - settings.tileSize > -settings.tileSize &&
                             canParallaxShift)
                         {
                             data.PartyPeople[j].y -= settings.tileSize;
@@ -145,8 +166,8 @@ var setInput = function (settings, data, game){
                     }
                     for (k = playerPosition - 1; k >= 0; k--)
                     {
-                        if (!data.map.hitTest(data.PartyPeople[k].x, data.PartyPeople[k].y + settings.tileSize) && 
-                            data.PartyPeople[k].y + settings.tileSize > settings.tileSize &&
+                        if (!data.map.hitTest(data.PartyPeople[k].x, data.PartyPeople[k].y - settings.tileSize) && 
+                            data.PartyPeople[k].y - settings.tileSize > settings.tileSize &&
                             canParallaxShift)
                         {
                             data.PartyPeople[k].y -= settings.tileSize;
@@ -162,8 +183,8 @@ var setInput = function (settings, data, game){
                     canParallaxShift = true;
                     for (k = playerPosition + 1; k < data.PartyPeople.length; k++)
                     {
-                        if (!data.map.hitTest(data.PartyPeople[k].x, data.PartyPeople[k].y + settings.tileSize) && 
-                            data.PartyPeople[k].y + settings.tileSize > settings.tileSize &&
+                        if (!data.map.hitTest(data.PartyPeople[k].x, data.PartyPeople[k].y - settings.tileSize) && 
+                            data.PartyPeople[k].y - settings.tileSize > settings.tileSize &&
                             canParallaxShift)
                         {
                             data.PartyPeople[k].y -= settings.tileSize;
@@ -197,7 +218,7 @@ var setInput = function (settings, data, game){
                 {
                     for (var i = 1; i < data.PartyPeople.length; i++)
                     {
-                        if (!data.map.hitTest(data.PartyPeople[i].x,data.PartyPeople[i].y - settings.tileSize) && 
+                        if (!data.map.hitTest(data.PartyPeople[i].x,data.PartyPeople[i].y + settings.tileSize) && 
                             data.PartyPeople[i].y + settings.tileSize < settings.MapHeight * settings.tileSize &&
                             canParallaxShift)
                         {
@@ -216,7 +237,7 @@ var setInput = function (settings, data, game){
                 {
                     for (var j = data.PartyPeople.length - 1; j >= 0; j--)
                     {
-                        if (!data.map.hitTest(data.PartyPeople[j].x,data.PartyPeople[j].y - settings.tileSize) && 
+                        if (!data.map.hitTest(data.PartyPeople[j].x,data.PartyPeople[j].y + settings.tileSize) && 
                             data.PartyPeople[j].y + settings.tileSize < settings.MapHeight * settings.tileSize &&
                             canParallaxShift)
                         {
@@ -245,7 +266,7 @@ var setInput = function (settings, data, game){
                     }
                     for (k = playerPosition - 1; k >= 0; k--)
                     {
-                        if (!data.map.hitTest(data.PartyPeople[k].x,data.PartyPeople[k].y - settings.tileSize) && 
+                        if (!data.map.hitTest(data.PartyPeople[k].x,data.PartyPeople[k].y + settings.tileSize) && 
                             data.PartyPeople[k].y + settings.tileSize < settings.MapHeight * settings.tileSize &&
                             canParallaxShift)
                         {
@@ -262,7 +283,7 @@ var setInput = function (settings, data, game){
                     canParallaxShift = true;
                     for (k = playerPosition + 1; k < data.PartyPeople.length; k++)
                     {
-                        if (!data.map.hitTest(data.PartyPeople[k].x,data.PartyPeople[k].y - settings.tileSize) && 
+                        if (!data.map.hitTest(data.PartyPeople[k].x,data.PartyPeople[k].y + settings.tileSize) && 
                             data.PartyPeople[k].y + settings.tileSize < settings.MapHeight * settings.tileSize &&
                             canParallaxShift)
                         {
@@ -289,9 +310,15 @@ var setInput = function (settings, data, game){
                         data.AbandonedPeople[i].startX * settings.tileSize <= player.x + settings.tileSize) 
                     {
                         if (data.facingRight)
+                        {
                             data.PartyPeople.unshift(data.AbandonedPeople[i]);
+                            data.AbandonedPeople[i].sprite.x = player.x - settings.tileSize;
+                        }
                         else
+                        {
                             data.PartyPeople.push(data.AbandonedPeople[i]);
+                            data.AbandonedPeople[i].sprite.x = player.x + settings.tileSize;
+                        }
                         AddToParty(data.AbandonedPeople[i], settings, data, game);
                         data.AbandonedPeople.splice(i, 1);
                         game.input.x = null;
@@ -306,9 +333,15 @@ var setInput = function (settings, data, game){
                         data.WoodsPeople[j].startX * settings.tileSize <= player.x + settings.tileSize) 
                     {
                         if (data.facingRight)
+                        {
                             data.PartyPeople.unshift(data.WoodsPeople[j]);
+                            data.WoodsPeople[j].sprite.x = player.x - settings.tileSize;
+                        }
                         else
+                        {
                             data.PartyPeople.push(data.WoodsPeople[j]);
+                            data.WoodsPeople[j].sprite.x = player.x + settings.tileSize;
+                        }
                         AddToParty(data.WoodsPeople[j], settings, data, game);
                         data.WoodsPeople.splice(j, 1);
                         game.input.x = null;
