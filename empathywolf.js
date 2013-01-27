@@ -13,9 +13,13 @@ window.onload = function () {
     game.preload('map1.gif', 'chara0.gif', "chara1.png", "img/people_man_fat.png", "img/tree_1wide_split.png");
 
     game.onload = function () {
-        var stage = new Group();
+        
+        data.stage = new Group();
         stage.y = 250;
-        var player = new Sprite(80, 120);
+        data.player = new Sprite(80, 120);
+        
+        var stage = data.stage;
+        var player = data.player;
 
         //load map data
         data.map = new Map(16, 16);
