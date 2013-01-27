@@ -15,7 +15,7 @@ window.onload = function () {
     game.onload = function () {
         
         data.stage = new Group();
-        stage.y = 250;
+        data.stage.y = 250;
         data.player = new Sprite(80, 120);
         
         var stage = data.stage;
@@ -44,8 +44,8 @@ window.onload = function () {
             var x = player.x;
             var y = player.y;
 
-            game.keybind(88, 'x'); //X
-            game.keybind(90, 'z'); //Z
+            game.keybind(88, 'x');
+            game.keybind(90, 'z');
 
             if (game.input.left) {
                 if (!data.map.hitTest(x - settings.tileSize, y)) {
