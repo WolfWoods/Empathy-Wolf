@@ -44,8 +44,8 @@ window.onload = function () {
             var x = player.x;
             var y = player.y;
 
-            game.keybind(88, 'a'); //X
-            game.keybind(90, 'b'); //Z
+            game.keybind(88, 'x'); //X
+            game.keybind(90, 'z'); //Z
 
             if (game.input.left) {
                 if (!data.map.hitTest(x - settings.tileSize, y)) {
@@ -80,7 +80,7 @@ window.onload = function () {
             }
 
 
-            if (game.input.a) // Grab person
+            if (game.input.x) // Grab person
             {
                 for (var i = 0; i < data.AbandonedPeople.length; i++) {
                     if (data.AbandonedPeople[i].startY * settings.tileSize == player.y) {
@@ -107,7 +107,7 @@ window.onload = function () {
                 }
             }
 
-            if (game.input.b) // Drop person
+            if (game.input.z) // Drop person
             {
                 if (data.PartyPeople.length > 0) {
                     alert("drop");
