@@ -16,7 +16,6 @@ var setInput = function (settings, data, game){
                 if (data.facingRight) {
                     player.scale(-1, 1);
                     data.facingRight = !data.facingRight;
-
                 }
                 
                 // handle party people/player in array
@@ -26,12 +25,15 @@ var setInput = function (settings, data, game){
 
         // Move right
         if (game.input.right) {
-            if (!data.map.hitTest(x + settings.tileSize, y)) {
+            if (!data.map.hitTest(x + settings.tileSize, y)) { 
                 player.x += settings.tileSize;
                 if (!data.facingRight) {
                     player.scale(-1, 1);
                     data.facingRight = !data.facingRight;
-
+                }
+                if (player.x >= data.FinishLineX * settings.tileSize)
+                {
+                    ShowTitleScreen(data.PartyPeople.length, settings, data, game);
                 }
                 
                 // handle party people/player in array
