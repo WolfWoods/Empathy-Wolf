@@ -20,7 +20,7 @@ var RemoveFromParty = function (person, settings, data, game)
         person.addEventListener('enterframe', function (e) 
         {
             person.wolfTimer--;
-            if (person.wolfTimer === 0)
+            if (person.wolfTimer === 0 && !person.dead)
             {
                 EatenByWolf(person, settings, data, game);  
                 return;
@@ -34,6 +34,7 @@ var EatenByWolf = function (person, settings, data, game)
         {
             if (person.personID === data.AbandonedPeople[i].personID)
             {
+                data.AbandonedPeople[i].dead = true;
                 data.AbandonedPeople.splice(i,1);
                 break;
             }

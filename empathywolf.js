@@ -45,6 +45,7 @@ window.onload = function () {
         player.y = data.PlayerStartY * settings.tileSize;
         data.PartyPeople.push(player);
         player.isPlayer = true;
+        data.shownGameOverScreen = false;
 
         setInput(settings,data,game);
 
