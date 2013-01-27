@@ -82,10 +82,10 @@ var setInput = function (settings, data, game){
         }
     
         // Move up to farther parallax layer
-        if (game.input.up) 
+        if (game.input.up && data.parallaxCooldown <= 0)
         {
             if (!data.map.hitTest(x, y - settings.tileSize) &&
-                y - settings.tileSize > 0) 
+                y - settings.tileSize > -settings.tileSize) 
             {
                 player.y -= settings.tileSize;
                 data.parallaxCooldown = 5;
