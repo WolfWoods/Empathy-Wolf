@@ -1,7 +1,17 @@
 var loadPeople = function (settings, data, game){
     for (var i = 0; i < data.WoodsPeople.length; i++) {
             data.WoodsPeople[i].sprite = new Sprite(80, 120);
-            data.WoodsPeople[i].sprite.image = game.assets["img/people_woman_old.png"];
+            var randomnumber = Math.floor(Math.random()*3);
+           	if (randomnumber == 0)
+           	{
+           		data.WoodsPeople[i].sprite.image = game.assets["img/people_woman_old.png"];
+           	}
+           	else if (randomnumber == 1)
+           	{
+           		data.WoodsPeople[i].sprite.image = game.assets["img/people_man_old.png"];
+           	}
+            else
+            	data.WoodsPeople[i].sprite.image = game.assets["img/people_woman_fat.png"];
             data.WoodsPeople[i].sprite.x = data.WoodsPeople[i].startX * settings.tileSize;
             data.WoodsPeople[i].sprite.y = 325;
             data.layers[data.WoodsPeople[i].startY].stage.addChild(data.WoodsPeople[i].sprite);
